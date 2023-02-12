@@ -1,0 +1,78 @@
+@import '~@swimlane/ngx-datatable/index.css';
+@import '~@swimlane/ngx-datatable/themes/material.scss';
+@import '~@swimlane/ngx-datatable/themes/dark.scss';
+@import '~@swimlane/ngx-datatable/themes/bootstrap.scss';
+@import '~@swimlane/ngx-datatable/assets/icons.css';
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
+
+// Here you can add other styles
+.mat-bottom-sheet-container{
+  color: #424242;
+  background: #fff;
+  margin-left: -9px;
+}
+
+
+.datatable-header {
+  background: #424242;
+  color: #ededed;
+  font-weight: bold;
+}
+
+
+.center {
+  text-align: center;
+}
+
+.ngx-datatable .datatable-header .datatable-header-cell .datatable-header-cell-template-wrap {
+  height: 20px !important;
+}
+
+
+
+// .sidebar .nav-dropdown.open > .nav-dropdown-items {
+//   padding-left: 15px;
+// }
+
+// .sidebar .nav-title {
+//   padding: 1rem 1rem;
+//   font-size: 100%;
+// }
+
+
+// @media (min-width: 992px) {
+//   .sidebar-fixed .sidebar {
+//     position: fixed;
+//     z-index: 1019;
+//     width: 230px;
+//     height: 100vh;
+//   }
+// }
+
+// .sidebar .sidebar-nav {
+//   position: relative;
+//   flex: 1;
+//   width: 230px;
+// }
+
+// .sidebar .nav {
+//   width: 230px;
+//   flex-direction: column;
+//   min-height: 100%;
+//   padding: 0;
+// }
+
+// @media (min-width: 992px) {
+//   html:not([dir=rtl]) .sidebar-lg-show.sidebar-fixed .main, html:not([dir=rtl]) .sidebar-lg-show.sidebar-fixed .app-footer, html:not([dir=rtl]) .sidebar-show.sidebar-fixed .main, html:not([dir=rtl]) .sidebar-show.sidebar-fixed .app-footer {
+//     margin-left: 230px;
+//   }
+// }
+
+
+
+.ng-select.ng-select-focused:not(.ng-select-opened)>.ng-select-container {
+  border-color: #8AD4EE;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(138,212,238, 0.5);
+}

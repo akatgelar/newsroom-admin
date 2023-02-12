@@ -1,0 +1,130 @@
+<ngx-loading
+  [show]="loading"
+  [config]="{ backdropBorderRadius: '3px', fullScreenBackdrop: true }"
+></ngx-loading>
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">Data Koran</div>
+        <div class="card-body row">
+          <div class="input-group col-lg-8 mb-2">
+            <a
+              href="#/koran/add"
+              aria-pressed="true"
+              class="col-md-4 col-sm-12 btn btn-block btn-success"
+              type="button"
+              ><i class="fa fa-plus mr-1"></i>Tambah Data</a
+            >
+          </div>
+          <div class="input-group col-lg-4 mb-2">
+            <input
+              class="form-control"
+              id="input1-group2"
+              name="input1-group2"
+              [(ngModel)]="search"
+              placeholder="Cari Data"
+              type="text"
+              (keyup.enter)="filterCallback($event)"
+            />
+            <span class="input-group-prepend">
+              <button
+                class="btn btn-primary"
+                type="button"
+                (click)="filterCallbacks()"
+              >
+                <i class="fa fa-search"></i> Cari Data
+              </button>
+            </span>
+          </div>
+
+
+          <div class="col-lg-12">
+            <ngx-datatable
+              class="bootstrap"
+              [rows]="rows"
+              [columnMode]="'force'"
+              [headerHeight]="50"
+              [footerHeight]="50"
+              [rowHeight]="'auto'"
+              [externalPaging]="true"
+              [externalSorting]="true"
+              [scrollbarH]="true"
+              [count]="page.count"
+              [offset]="page.page"
+              [limit]="page.per_page"
+              [sortType]="'single'"
+              (page)="pageCallback($event)"
+              (sort)="sortCallback($event)"
+            >
+              <ngx-datatable-column name="Id" prop="id" [sortable]="true" width="50">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ row["id"] }}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column  name="Image" prop="image" [sortable]="true" width="150">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  <img height="100" [src]="(environment.apiUrl.slice(0, -1) + row['image'])" style="border-radius: 10px;"/>
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Title" prop="title" [sortable]="true" width="300">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ row["title"] }}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Category" prop="category" [sortable]="true" width="150">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ row["category"] }}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Tags" prop="tags" [sortable]="true" width="200">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  <ng-container *ngIf="row['tags'] != null">
+                    <ng-container *ngFor="let tag of row['tags'].split(',')">
+                      <span class="badge badge-info">{{tag}}</span>
+                    </ng-container>
+                  </ng-container>
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Tanggal Dibuat" prop="created_at" [sortable]="true"  width="150">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ converter.formatDateIndoTglJam(row["created_at"]) }}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Status Active" prop="is_active" [sortable]="true" width="150">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  <div *ngIf="row['is_active']; else badgeElse">
+                    <span class="badge badge-success">Aktif</span>
+                  </div>
+                  <ng-template #badgeElse>
+                    <div>
+                      <span class="badge badge-danger">Tidak Aktif</span>
+                    </div>
+                  </ng-template>
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Action">
+                <ng-template ngx-datatable-header-template>
+                  <div style="text-align: center">Aksi</div>
+                </ng-template>
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  <div style="text-align: center">
+                    <a href="#/koran/detail/{{ row['id'] }}/{{ caption }}" class="btn btn-sm btn-info" type="button">
+                      <i class="fa fa-search"></i>
+                    </a>
+                    <a href="#/koran/edit/{{ row['id'] }}/{{ caption }}" class="btn btn-sm btn-warning" type="button">
+                      <i class="fa fa-pencil"></i>
+                    </a>
+                    <button (click)="showDelete($event, row)" class="btn btn-sm btn-danger" type="button">
+                      <i class="fa fa-trash"></i>
+                    </button>
+                  </div>
+                </ng-template>
+              </ngx-datatable-column>
+            </ngx-datatable>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

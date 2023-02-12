@@ -1,0 +1,181 @@
+<ngx-loading
+  [show]="loading"
+  [config]="{ backdropBorderRadius: '3px', fullScreenBackdrop: true }"
+></ngx-loading>
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">Data User</div>
+        <div class="card-body row">
+          <div class="input-group col-lg-3 mb-2">
+            <a
+              href="#/users/add"
+              aria-pressed="true"
+              class="col-md-12 col-sm-12 btn btn-block btn-success"
+              type="button"
+              ><i class="fa fa-plus mr-1"></i>Tambah Data</a
+            >
+          </div>
+          <div class="input-group col-lg-5 mb-2"></div>
+          <div class="input-group col-lg-4 mb-2">
+            <input
+              class="form-control"
+              id="input1-group2"
+              name="input1-group2"
+              [(ngModel)]="search"
+              placeholder="Cari Data"
+              type="text"
+              (keyup.enter)="filterCallback($event)"
+            />
+            <span class="input-group-prepend">
+              <button
+                class="btn btn-primary"
+                type="button"
+                (click)="filterCallbacks()"
+              >
+                <i class="fa fa-search"></i> Cari Data
+              </button>
+            </span>
+          </div>
+
+          <div class="input-group col-lg-3 mb-2">
+            <select
+              class="form-control"
+              placeholder="Pilih Level"
+              (change)="changeCategory($event)"
+              [(ngModel)]="selectedCategory"
+            >
+              <option value="">-- Pilih Level --</option>
+              <option *ngFor="let row of rowsCategory" value="{{ row.id }}">
+                {{ row.name }}
+              </option>
+            </select>
+          </div>
+          <div class="input-group col-lg-9 mb-2"></div>
+
+          <div class="col-lg-12">
+            <ngx-datatable
+              class="bootstrap"
+              [rows]="rows"
+              [columns]="columns"
+              [headerHeight]="50"
+              [footerHeight]="50"
+              [rowHeight]="'auto'"
+              [externalPaging]="true"
+              [externalSorting]="true"
+              [scrollbarH]="true"
+              [count]="page.count"
+              [offset]="page.page"
+              [limit]="page.per_page"
+              [sortType]="'single'"
+              (page)="pageCallback($event)"
+              (sort)="sortCallback($event)"
+            >
+            <ngx-datatable-column
+              name="Id"
+              prop="id"
+              [sortable]="true"
+            >
+              <ng-template let-row="row" ngx-datatable-cell-template>
+                {{ row["id"] }}
+              </ng-template>
+            </ngx-datatable-column>
+              <ngx-datatable-column
+                name="Level"
+                prop="user_level_name"
+                [sortable]="true"
+              >
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ row["user_level_name"] }}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Foto" prop="foto" [sortable]="true">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  <img height="100" [src]="(environment.apiUrl.slice(0, -1) + row['foto'])" />
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Email" prop="email" [sortable]="true">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ row["email"] }}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Phone" prop="phone" [sortable]="true">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ row["phone"] }}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column
+                name="Username"
+                prop="username"
+                [sortable]="true"
+              >
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ row["username"] }}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Nama" prop="nama" [sortable]="true">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ row["nama"] }}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column
+                name="Update Terakhir"
+                prop="updated_at"
+                [sortable]="true"
+              >
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ converter.formatDateIndoTglJam(row["updated_at"]) }}
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column
+                name="Status"
+                prop="is_active"
+                [sortable]="true"
+              >
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  <div *ngIf="row['is_active']; else badgeElse">
+                    <span class="badge badge-success">Aktif</span>
+                  </div>
+                  <ng-template #badgeElse>
+                    <div>
+                      <span class="badge badge-danger">Tidak Aktif</span>
+                    </div>
+                  </ng-template>
+                </ng-template>
+              </ngx-datatable-column>
+              <ngx-datatable-column name="Action">
+                <ng-template ngx-datatable-header-template>
+                  <div style="text-align: center">Aksi</div>
+                </ng-template>
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  <div style="text-align: center">
+                    <a
+                      href="#/users/detail/{{ row['id'] }}"
+                      class="btn btn-sm btn-info"
+                      type="button"
+                      ><i class="fa fa-search"></i
+                    ></a>
+                    <a
+                      href="#/users/edit/{{ row['id'] }}"
+                      class="btn btn-sm btn-warning"
+                      type="button"
+                      ><i class="fa fa-pencil"></i
+                    ></a>
+                    <button
+                      (click)="showDelete($event, row)"
+                      class="btn btn-sm btn-danger"
+                      type="button"
+                    >
+                      <i class="fa fa-trash"></i>
+                    </button>
+                  </div>
+                </ng-template>
+              </ngx-datatable-column>
+            </ngx-datatable>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,62 @@
+<app-header
+  [navbarBrandRouterLink]="['/dashboard']"
+  [fixed]="true"
+  [navbarBrandFull]="{src: 'assets/img/newsroom-title.png', width: 128, height: 45, alt: 'CoreUI Logo'}"
+  [navbarBrandMinimized]="{src: 'assets/img/newsroom-title.png', width: 45, height: 45, alt: 'CoreUI Logo'}"
+  [sidebarToggler]="'lg'"
+  [asideMenuToggler]="false"
+  [mobileSidebarToggler]="true"
+  [mobileAsideMenuToggler]="false">
+  <ul class="nav navbar-nav ml-auto">
+    <!-- <li class="nav-item dropdown" dropdown placement="bottom right">
+      <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle (click)="false">
+        <i class="icon-bell"></i><span class="badge badge-pill badge-danger">{{rowsNotification.length}}</span>
+      </a>
+      <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
+        <ng-template *ngIf="rowsNotification.length > 0; else EmptyNotification">
+          <a *ngFor="let notif of rowsNotification" class="dropdown-item" href="#/transaction/{{notif['id']}}"> Pesanan, <b>{{notif["name"]}}</b> | <b> {{converter.formatRupiah(notif["total"])}}</b></a>
+        </ng-template>
+        <ng-template #EmptyNotification>
+          <a  class="dropdown-item" href="#">Tidak ada notifikasi</a>
+        </ng-template>
+      </div>
+    </li> -->
+    <li class="nav-item dropdown" dropdown placement="bottom right">
+      <div style="display: grid;">
+        {{rows.nama}}
+        <span *ngIf="rows.user_level_id == 1" class="badge badge-primary">{{rows.email}}</span>
+        <span *ngIf="rows.user_level_id == 2" class="badge badge-success">{{rows.email}}</span>
+        <span *ngIf="rows.user_level_id == 3" class="badge badge-warning">{{rows.email}}</span>
+        <span *ngIf="rows.user_level_id == 4" class="badge badge-danger">{{rows.email}}</span>
+        <span *ngIf="rows.user_level_id == 5" class="badge badge-dark">{{rows.email}}</span>
+        <span *ngIf="rows.user_level_id == 6" class="badge badge-dark">{{rows.email}}</span>
+      </div>
+    </li>
+    <li class="nav-item dropdown" dropdown placement="bottom right">
+      <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle (click)="false">
+        <img height="35" [src]="(environment.apiUrl.slice(0, -1) + rows['foto'])" alt="{{rows['name']}}" title="{{rows['nama']}}">
+      </a>
+      <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
+        <a class="dropdown-item" href="#/profile"><i class="fa fa-user"></i> Profile</a>
+        <a class="dropdown-item" href="#/password"><i class="fa fa-key"></i> Ubah Password</a>
+        <a class="dropdown-item" href="#/logout"><i class="fa fa-lock"></i> Logout</a>
+      </div>
+    </li>
+  </ul>
+</app-header>
+<div class="app-body">
+  <app-sidebar #appSidebar [fixed]="true" [display]="'lg'" [minimized]="sidebarMinimized" (minimizedChange)="toggleMinimize($event)">
+    <app-sidebar-nav [navItems]="navItems" [perfectScrollbar] [disabled]="appSidebar.minimized"></app-sidebar-nav>
+    <app-sidebar-minimizer></app-sidebar-minimizer>
+  </app-sidebar>
+  <main class="main">
+    <cui-breadcrumb>
+    </cui-breadcrumb>
+    <div class="container-fluid">
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+</div>
+<app-footer>
+  <span class="ml-auto">Copyright &copy; 2022 Pikiran Rakyat.</span>
+</app-footer>

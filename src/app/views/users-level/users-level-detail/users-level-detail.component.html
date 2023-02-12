@@ -1,0 +1,85 @@
+<ngx-loading
+  [show]="loading"
+  [config]="{ backdropBorderRadius: '3px', fullScreenBackdrop: true }"
+></ngx-loading>
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">Rincian Data User Level</div>
+        <div class="card-body row">
+          <div class="col-sm-12" *ngIf="rows">
+            <div class="row">
+              <div class="col-sm-3">
+                <label class="col-form-label"><strong>Name</strong></label>
+              </div>
+              <div class="col-sm-9">
+                <span style="vertical-align: sub">
+                  {{ rows["name"] }}
+                </span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-3">
+                <label class="col-form-label"
+                  ><strong>Description</strong></label
+                >
+              </div>
+              <div class="col-sm-9">
+                <span style="vertical-align: sub">
+                  {{ rows["description"] }}
+                </span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-3">
+                <label class="col-form-label"><strong>Status</strong></label>
+              </div>
+              <div class="col-sm-9">
+                <span style="vertical-align: sub">
+                  <div *ngIf="rows['is_active']; else badgeElse">
+                    <span class="badge badge-success">Aktif</span>
+                  </div>
+                  <ng-template #badgeElse>
+                    <div>
+                      <span class="badge badge-danger">Tidak Aktif</span>
+                    </div>
+                  </ng-template>
+                </span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-3">
+                <label class="col-form-label"
+                  ><strong>Tanggal Dibuat</strong></label
+                >
+              </div>
+              <div class="col-sm-9">
+                <span style="vertical-align: sub">
+                  {{ converter.formatDateIndoTglJam(rows["created_at"]) }}
+                </span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-3">
+                <label class="col-form-label"
+                  ><strong>Tanggal Diupdate</strong></label
+                >
+              </div>
+              <div class="col-sm-9">
+                <span style="vertical-align: sub">
+                  {{ converter.formatDateIndoTglJam(rows["updated_at"]) }}
+                </span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <hr />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

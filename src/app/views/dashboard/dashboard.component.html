@@ -1,0 +1,84 @@
+<ngx-loading
+  [show]="isLoading"
+  [config]="{ backdropBorderRadius: '3px', fullScreenBackdrop: true }"
+></ngx-loading>
+<div class="animated fadeIn">
+
+  <div class="row">
+    <!--/.col-->
+    <div class="col-sm-6 col-lg-6">
+      <div class="card text-white bg-danger">
+        <div class="card-body">
+          <div class="text-value">
+            <h1>{{ total_user | number: "":"id-ID" }}</h1>
+          </div>
+          <div>Total User</div>
+        </div>
+      </div>
+    </div>
+    <!--/.col-->
+    <div class="col-sm-6 col-lg-6">
+      <div class="card text-white bg-warning">
+        <div class="card-body">
+          <div class="text-value">
+            <h1>{{ total_akses | number: "":"id-ID" }}</h1>
+          </div>
+          <div>Total Akses</div>
+        </div>
+      </div>
+    </div>
+    <!--/.col-->
+    <div class="col-sm-3 col-lg-3">
+      <div class="card text-white bg-primary">
+        <div class="card-body">
+          <div class="text-value">
+            <h1>{{ total_artikel | number: "":"id-ID" }}</h1>
+          </div>
+          <div>Total Artikel</div>
+        </div>
+      </div>
+    </div>
+    <!--/.col-->
+    <div class="col-sm-3 col-lg-3">
+      <div class="card text-white bg-success">
+        <div class="card-body">
+          <div class="text-value">
+            <h1>{{ total_video | number: "":"id-ID" }}</h1>
+          </div>
+          <div>Total Video</div>
+        </div>
+      </div>
+    </div>
+    <!--/.col-->
+    <div class="col-sm-3 col-lg-3">
+      <div class="card text-white bg-info">
+        <div class="card-body">
+          <div class="text-value">
+            <h1>{{ total_podcast | number: "":"id-ID" }}</h1>
+          </div>
+          <div>Total Podcast</div>
+        </div>
+      </div>
+    </div>
+    <!--/.col-->
+    <div class="col-sm-3 col-lg-3">
+      <div class="card text-white bg-secondary">
+        <div class="card-body">
+          <div class="text-value">
+            <h1>{{ total_koran | number: "":"id-ID" }}</h1>
+          </div>
+          <div>Total Koran</div>
+        </div>
+      </div>
+    </div>
+    <!--/.col-->
+
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">  </div>
+        <div class="card-body row">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

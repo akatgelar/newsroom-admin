@@ -1,0 +1,173 @@
+<ngx-loading
+  [show]="loading"
+  [config]="{ backdropBorderRadius: '3px', fullScreenBackdrop: true }"
+></ngx-loading>
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">Rincian Data User</div>
+        <div class="card-body row">
+          <div class="col-sm-12" *ngIf="rows">
+
+            <div class="row">
+              <div class="col-sm-3">
+                <label class="col-form-label"><strong>Level</strong></label>
+              </div>
+              <div class="col-sm-9">
+                <span style="vertical-align: sub">
+                  {{ rows["user_level_name"] }}
+                </span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-3">
+                <label class="col-form-label"><strong>Email</strong></label>
+              </div>
+              <div class="col-sm-9">
+                <span style="vertical-align: sub">
+                  {{ rows["email"] }}
+                </span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-3">
+                <label class="col-form-label"><strong>Phone</strong></label>
+              </div>
+              <div class="col-sm-9">
+                <span style="vertical-align: sub">
+                  {{ rows["phone"] }}
+                </span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-3">
+                <label class="col-form-label"><strong>Username</strong></label>
+              </div>
+              <div class="col-sm-9">
+                <span style="vertical-align: sub">
+                  {{ rows["username"] }}
+                </span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-3">
+                <label class="col-form-label"><strong>Nama</strong></label>
+              </div>
+              <div class="col-sm-9">
+                <span style="vertical-align: sub">
+                  {{ rows["nama"] }}
+                </span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-3">
+                <label class="col-form-label"
+                  ><strong>Jenis Kelamin</strong></label
+                >
+              </div>
+              <div class="col-sm-9">
+                <span style="vertical-align: sub">
+                  {{ rows["jenis_kelamin"] }}
+                </span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-3">
+                <label class="col-form-label"
+                  ><strong>Tempat Lahir</strong></label
+                >
+              </div>
+              <div class="col-sm-9">
+                <span style="vertical-align: sub">
+                  {{ rows["tempat_lahir"] }}
+                </span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-3">
+                <label class="col-form-label"
+                  ><strong>Tanggal Lahir</strong></label
+                >
+              </div>
+              <div class="col-sm-9">
+                <span style="vertical-align: sub">
+                  {{ converter.formatDateIndoTgl(rows["tanggal_lahir"]) }}
+                </span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-3">
+                <label class="col-form-label"><strong>Alamat</strong></label>
+              </div>
+              <div class="col-sm-9">
+                <span style="vertical-align: sub">
+                  {{ rows["alamat"] }}
+                </span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-3">
+                <label class="col-form-label"><strong>Foto</strong></label>
+              </div>
+              <div class="col-sm-9">
+                <span style="vertical-align: sub" *ngIf="rows['foto']">
+                  <img
+                    src="{{ url_api + rows['foto'] }}"
+                    style="max-height: 250px; width: auto"
+                  />
+                </span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-3">
+                <label class="col-form-label"><strong>Status</strong></label>
+              </div>
+              <div class="col-sm-9">
+                <span style="vertical-align: sub">
+                  <div *ngIf="rows['is_active']; else badgeElse">
+                    <span class="badge badge-success">Aktif</span>
+                  </div>
+                  <ng-template #badgeElse>
+                    <div>
+                      <span class="badge badge-danger">Tidak Aktif</span>
+                    </div>
+                  </ng-template>
+                </span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-3">
+                <label class="col-form-label"
+                  ><strong>Tanggal Dibuat</strong></label
+                >
+              </div>
+              <div class="col-sm-9">
+                <span style="vertical-align: sub">
+                  {{ converter.formatDateIndoTglJam(rows["created_at"]) }}
+                </span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-3">
+                <label class="col-form-label"
+                  ><strong>Tanggal Diupdate</strong></label
+                >
+              </div>
+              <div class="col-sm-9">
+                <span style="vertical-align: sub">
+                  {{ converter.formatDateIndoTglJam(rows["updated_at"]) }}
+                </span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <hr />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

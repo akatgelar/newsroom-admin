@@ -1,0 +1,202 @@
+<ngx-loading
+  [show]="loading"
+  [config]="{ backdropBorderRadius: '3px', fullScreenBackdrop: true }">
+</ngx-loading>
+
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">Tambah Data Koran</div>
+        <div class="card-body">
+          <form
+            autocomplete="off"
+            novalidate
+            class="md-float-material"
+            [formGroup]="myForm"
+            (ngSubmit)="onSubmit()"
+            (keydown.enter)="$event.preventDefault()"
+          >
+            <div class="form-group">
+              <label class="col-form-label">Title</label>
+              <input
+                class="form-control"
+                type="text"
+                placeholder="Title"
+                formControlName="title"
+              />
+              <span class="messages text-danger" *ngIf="!myForm.get('title').valid && myForm.get('title')">* Harus diisi</span>
+              <span class="md-line"></span>
+            </div>
+
+            <div class="form-group">
+              <label class="col-form-label">Image</label>
+              <input
+                class="form-control"
+                type="hidden"
+                placeholder="Image"
+                formControlName="image"
+              >
+              <input
+                style="display: block"
+                type="file"
+                (change)="onImage($event)"
+                placeholder="Upload file..."
+                accept=".png,.jpg,.jpeg"
+              />
+              <img
+                width="{{ imageWidth }}"
+                class="mt-1"
+                [src]="url_api + myForm.get('image').value"
+              />
+              <span class="messages text-danger" *ngIf="!myForm.get('image').valid && myForm.get('image')">* Harus diisi</span>
+              <span class="md-line"></span>
+            </div>
+
+            <div class="form-group">
+              <label class="col-form-label">Category</label>
+              <ng-select
+                  formControlName="category"
+                  bindLabel="category"
+                  bindValue="category"
+                  placeholder="Select or Insert new category"
+                  [items]="rowsCategory"
+                  [addTag]="addCategory"
+                  [multiple]="false"
+                  [loading]="loading" >
+                <ng-template ng-tag-tmp let-search="searchTerm">
+                    <b>create new</b>: {{search}}
+                </ng-template>
+              </ng-select>
+              <span class="messages text-danger" *ngIf="!myForm.get('category').valid && myForm.get('category')">* Harus diisi</span>
+              <span class="md-line"></span>
+            </div>
+
+            <div class="form-group">
+              <label class="col-form-label">Tags</label>
+              <ng-select
+                  formControlName="tags"
+                  placeholder="Add tags"
+                  [items]="[]"
+                  [addTag]="true"
+                  [multiple]="true"
+                  [selectOnTab]="true"
+                  [isOpen]="false" >
+              </ng-select>
+              <span class="messages text-danger" *ngIf="!myForm.get('tags').valid && myForm.get('tags')">* Harus diisi</span>
+              <span class="md-line"></span>
+            </div>
+
+            <div class="form-group">
+              <label class="col-form-label">Edition</label>
+              <input
+                class="form-control"
+                type="text"
+                placeholder="Edition"
+                formControlName="edition"
+              />
+              <span class="messages text-danger" *ngIf="!myForm.get('edition').valid && myForm.get('edition')">* Harus diisi</span>
+              <span class="md-line"></span>
+            </div>
+
+            <div class="form-group">
+              <label class="col-form-label">Link</label>
+              <input
+                class="form-control"
+                type="link"
+                placeholder="Link"
+                formControlName="link"
+              />
+              <span class="messages text-danger" *ngIf="!myForm.get('link').valid && myForm.get('link')">* Harus diisi</span>
+              <span class="md-line"></span>
+            </div>
+
+            <div class="form-group">
+              <label class="col-form-label">Text Preview</label>
+              <textarea
+                class="form-control"
+                type="text"
+                placeholder="Text Preview"
+                formControlName="desc_short"
+                rows="5"
+              ></textarea>
+              <span class="messages text-danger" *ngIf="!myForm.get('desc_short').valid && myForm.get('desc_short')">* Harus diisi</span>
+              <span class="md-line"></span>
+            </div>
+
+            <div class="form-group">
+              <label class="col-form-label">Text Content</label>
+              <div
+                [ngxSummernote]="summernoteConfig"
+                formControlName="desc_long"
+              ></div>
+              <span class="messages text-danger" *ngIf="!myForm.get('desc_long').valid && myForm.get('desc_long')">* Harus diisi</span>
+              <span class="md-line"></span>
+            </div>
+
+            <div class="form-group">
+              <label class="col-form-label">Creator</label>
+              <input
+                class="form-control"
+                type="text"
+                placeholder="Creator"
+                formControlName="creator"
+              />
+              <span class="messages text-danger" *ngIf="!myForm.get('creator').valid && myForm.get('creator')">* Harus diisi</span>
+              <span class="md-line"></span>
+            </div>
+
+            <div class="form-group">
+              <label class="col-form-label">Source</label>
+              <input
+                class="form-control"
+                type="text"
+                placeholder="Source"
+                formControlName="source"
+              />
+              <span class="messages text-danger" *ngIf="!myForm.get('source').valid && myForm.get('source')">* Harus diisi</span>
+              <span class="md-line"></span>
+            </div>
+
+            <div class="form-group">
+              <label class="col-form-label">Notes</label>
+              <textarea
+                class="form-control"
+                type="text"
+                placeholder="Notes"
+                formControlName="notes"
+              ></textarea>
+              <span class="messages text-danger" *ngIf="!myForm.get('notes').valid && myForm.get('notes')">* Harus diisi</span>
+              <span class="md-line"></span>
+            </div>
+
+            <div class="form-group">
+              <label class="col-form-label">Status Active</label>
+              <br>
+              <label class="switch switch-label switch-pill switch-success">
+                <input type="checkbox" class="switch-input" formControlName="is_active">
+                <span class="switch-slider" data-checked="&#x2713;" data-unchecked="&#x2715;"></span>
+              </label>
+              <span class="messages text-danger" *ngIf="!myForm.get('is_active').valid && myForm.get('is_active')">* Harus diisi</span>
+              <span class="md-line"></span>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-sm-6 col-xl-6"></div>
+              <div class="col-sm-3 col-xl-3">
+                <button class="btn btn-danger btn-md btn-block m-1" type="button" (click)="showBack()">
+                  <i class="icofont icofont-error"></i>Batal
+                </button>
+              </div>
+              <div class="col-sm-3 col-xl-3">
+                <button class="btn btn-success btn-md btn-block m-1" type="submit" [disabled]="!myForm.valid">
+                  <i class="icofont icofont-diskette"></i>Simpan
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,193 @@
+<ngx-loading
+  [show]="loading"
+  [config]="{ backdropBorderRadius: '3px', fullScreenBackdrop: true }"
+></ngx-loading>
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <div class="card-header">Tambah Data User</div>
+        <div class="card-body">
+          <form
+            class="md-float-material"
+            [formGroup]="myForm"
+            (ngSubmit)="onSubmit()"
+            (keydown.enter)="$event.preventDefault()"
+          >
+            <div class="form-group">
+              <label class="col-form-label">Level</label>
+              <select
+                class="form-control"
+                placeholder="Pilih Level"
+                formControlName="user_level_id"
+              >
+                <option value="">-- Pilih Level --</option>
+                <option *ngFor="let row of rowsCategory" value="{{ row.id }}">
+                  {{ row.name }}
+                </option>
+              </select>
+              <span class="messages text-danger" *ngIf="!myForm.get('user_level_id').valid && myForm.get('user_level_id')">* Harus diisi</span>
+              <span class="md-line"></span>
+            </div>
+
+            <div class="form-group">
+              <label class="col-form-label">Email</label>
+              <input
+                class="form-control"
+                type="email"
+                placeholder="Email"
+                formControlName="email"
+              />
+              <span class="messages text-danger" *ngIf="!myForm.get('email').valid && myForm.get('email')">* Harus diisi</span>
+              <span class="md-line"></span>
+            </div>
+
+            <div class="form-group">
+              <label class="col-form-label">Phone</label>
+              <input
+                class="form-control"
+                type="text"
+                placeholder="Phone"
+                formControlName="phone"
+              />
+              <span class="messages text-danger" *ngIf="!myForm.get('phone').valid && myForm.get('phone')">* Harus diisi</span>
+              <span class="md-line"></span>
+            </div>
+
+            <div class="form-group">
+              <label class="col-form-label">Username</label>
+              <input
+                class="form-control"
+                type="text"
+                placeholder="Username"
+                formControlName="username"
+              />
+              <span class="messages text-danger" *ngIf="!myForm.get('username').valid && myForm.get('username')">* Harus diisi</span>
+              <span class="md-line"></span>
+            </div>
+
+            <div class="form-group">
+              <label class="col-form-label">Password</label>
+              <input
+                class="form-control"
+                type="password"
+                placeholder="Password"
+                formControlName="password"
+              />
+              <span class="messages text-danger" *ngIf="!myForm.get('password').valid && myForm.get('password')">* Harus diisi</span>
+              <span class="md-line"></span>
+            </div>
+
+            <div class="form-group">
+              <label class="col-form-label">Nama</label>
+              <input
+                class="form-control"
+                type="text"
+                placeholder="Nama"
+                formControlName="nama"
+              />
+              <span class="messages text-danger" *ngIf="!myForm.get('nama').valid && myForm.get('nama')">* Harus diisi</span>
+              <span class="md-line"></span>
+            </div>
+
+            <div class="form-group">
+              <label class="col-form-label">Jenis Kelamin</label>
+              <select class="form-control" formControlName="jenis_kelamin">
+                <option value="">-- Pilih Jenis Kelamin --</option>
+                <option value="Laki-laki">Laki-laki</option>
+                <option value="Perempuan">Perempuan</option>
+              </select>
+              <span class="messages text-danger" *ngIf="!myForm.get('jenis_kelamin').valid && myForm.get('jenis_kelamin')">* Harus diisi</span>
+              <span class="md-line"></span>
+            </div>
+
+            <div class="form-group">
+              <label class="col-form-label">Tempat Lahir</label>
+              <input
+                class="form-control"
+                type="text"
+                placeholder="Tempat Lahir"
+                formControlName="tempat_lahir"
+              />
+              <span class="messages text-danger" *ngIf="!myForm.get('tempat_lahir').valid && myForm.get('tempat_lahir')">* Harus diisi</span>
+              <span class="md-line"></span>
+            </div>
+
+            <div class="form-group">
+              <label class="col-form-label">Tanggal Lahir</label>
+              <input
+                class="form-control"
+                type="date"
+                placeholder="Tanggal Lahir"
+                formControlName="tanggal_lahir"
+              />
+              <span class="messages text-danger" *ngIf="!myForm.get('tanggal_lahir').valid && myForm.get('tanggal_lahir')">* Harus diisi</span>
+              <span class="md-line"></span>
+            </div>
+
+            <div class="form-group">
+              <label class="col-form-label">Alamat</label>
+              <input
+                class="form-control"
+                type="text"
+                placeholder="Alamat"
+                formControlName="alamat"
+              />
+              <span class="messages text-danger" *ngIf="!myForm.get('alamat').valid && myForm.get('alamat')">* Harus diisi</span>
+              <span class="md-line"></span>
+            </div>
+
+            <div class="form-group">
+              <label class="col-form-label">Foto</label>
+              <input
+                class="form-control"
+                type="hidden"
+                placeholder="Foto"
+                formControlName="foto"
+              />
+              <input
+                style="display: block"
+                type="file"
+                (change)="onImage($event)"
+                placeholder="Upload file..."
+                accept=".png,.jpg,.jpeg"
+              />
+              <img
+                width="{{ width }}"
+                class="mt-1"
+                [src]="url_api + myForm.get('foto').value"
+              />
+              <span class="messages text-danger" *ngIf="!myForm.get('foto').valid && myForm.get('foto')">* Harus diisi</span>
+              <span class="md-line"></span>
+            </div>
+
+            <div class="form-group">
+              <label class="col-form-label">Status Aktif</label>
+              <br>
+              <label class="switch switch-label switch-pill switch-success">
+                <input type="checkbox" class="switch-input" formControlName="is_active">
+                <span class="switch-slider" data-checked="&#x2713;" data-unchecked="&#x2715;"></span>
+              </label>
+              <span class="messages text-danger" *ngIf="!myForm.get('is_active').valid && myForm.get('is_active')">* Harus diisi</span>
+              <span class="md-line"></span>
+            </div>
+
+            <div class="form-group row">
+              <div class="col-sm-6 col-xl-6"></div>
+              <div class="col-sm-3 col-xl-3">
+                <button class="btn btn-danger btn-md btn-block m-1" type="button" (click)="showBack()">
+                  <i class="icofont icofont-error"></i>Batal
+                </button>
+              </div>
+              <div class="col-sm-3 col-xl-3">
+                <button class="btn btn-success btn-md btn-block m-1" type="submit" [disabled]="!myForm.valid">
+                  <i class="icofont icofont-diskette"></i>Simpan
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
